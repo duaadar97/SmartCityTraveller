@@ -1,0 +1,122 @@
+{
+  "project_info": {
+    "project_number": "385471823575",
+    "firebase_url": "https://smart-city-traveller-8826d.firebaseio.com",
+    "project_id": "smart-city-traveller-8826d",
+    "storage_bucket": "smart-city-traveller-8826d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385471823575:android:b42dfab42909aebdff3a92",
+        "android_client_info": {
+          "package_name": "com.pucit.mcproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "385471823575-9npj6cskkd6rkk0ovul7m1q19g6ucm7b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pucit.mcproject",
+            "certificate_hash": "643a66b59e374a35cf5c1708bcf277646dcdb676"
+          }
+        },
+        {
+          "client_id": "385471823575-p26jek72ipqru8q7h66ke38qlntrj3vr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQSbpQyfcACwIcWPj9LCzbHVnXacTfuZQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "385471823575-p26jek72ipqru8q7h66ke38qlntrj3vr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385471823575:android:9d54bc943cedc5c7ff3a92",
+        "android_client_info": {
+          "package_name": "com.pucit.myasynctask"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "385471823575-blvfra6b66fpe4d7durk968tn725u7tk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pucit.myasynctask",
+            "certificate_hash": "643a66b59e374a35cf5c1708bcf277646dcdb676"
+          }
+        },
+        {
+          "client_id": "385471823575-p26jek72ipqru8q7h66ke38qlntrj3vr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQSbpQyfcACwIcWPj9LCzbHVnXacTfuZQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "385471823575-p26jek72ipqru8q7h66ke38qlntrj3vr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385471823575:android:9db366d5d82dd774ff3a92",
+        "android_client_info": {
+          "package_name": "com.pucit.smartcitytraveler"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "385471823575-p6qje49r5f1lha924qsost9u8rnp7v2f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pucit.smartcitytraveler",
+            "certificate_hash": "643a66b59e374a35cf5c1708bcf277646dcdb676"
+          }
+        },
+        {
+          "client_id": "385471823575-p26jek72ipqru8q7h66ke38qlntrj3vr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQSbpQyfcACwIcWPj9LCzbHVnXacTfuZQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "385471823575-p26jek72ipqru8q7h66ke38qlntrj3vr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
