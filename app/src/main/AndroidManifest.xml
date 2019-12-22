@@ -27,7 +27,7 @@
             android:value="@string/map_key" />
 
         <activity android:name=".MainActivity">
-            
+
         </activity>
     </application>
 
