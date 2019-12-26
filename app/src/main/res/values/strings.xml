@@ -1,4 +1,10 @@
 <resources>
-    <string name="app_name">McProject</string>
+    <string name="app_name">Smart City Traveler </string>
     <string name="map_key" translatable="false">AIzaSyB_qsP8AOP_P0MdlPz-48TDaJYjTP3vbjo</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="tab_text_1">Cities</string>
+    <string name="tab_text_2">Map View</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
