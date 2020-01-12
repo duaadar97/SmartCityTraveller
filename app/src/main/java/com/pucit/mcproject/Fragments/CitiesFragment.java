@@ -1,18 +1,23 @@
 package com.pucit.mcproject.Fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.maps.model.LatLng;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pucit.mcproject.Adapters.CityAdapter;
 import com.pucit.mcproject.Models.City;
 import com.pucit.mcproject.R;
@@ -21,9 +26,17 @@ import java.util.ArrayList;
 
 public class CitiesFragment extends Fragment {
 
+    private static final String FIREBASE_CITY_TABLE_NAME = "Cities";
     private RecyclerView recyclerView;
     private CityAdapter cityAdapter;
-    ArrayList<City> list=new ArrayList<>();
+    private ArrayList<City> list = new ArrayList<>();
+
+    private FragmentManager mFragmentManager;
+    private FragmentTransaction mFragmentTransaction;
+
+    private DatabaseReference FIREBASE_DATABASE;
+    private DatabaseReference mCityTable;
+
     public CitiesFragment() {
         // Required empty public constructor
     }
@@ -35,29 +48,34 @@ public class CitiesFragment extends Fragment {
 
     }
 
-    public void fetchWorldCities(){
-        //fetching code goes here!
-
-        //populate list
-        //list.add("city data")
-        //cityAdapter.notifyDataSetChanged();
-    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_cities, container, false);
+        View view = inflater.inflate(R.layout.fragment_cities, container, false);
 
+        //initiallize fragment manager
+        mFragmentManager = getActivity().getSupportFragmentManager();
 
-        list.add(new City("Lahore","https://dynaimage.cdn.cnn.com/cnn/q_auto,w_900,c_fill,g_auto,h_506,ar_16:9/http%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F190123183436-lahore-1042hr.jpg",new LatLng(31.4826352,74.0542001)));
-        list.add(new City("Karachi","data:image/jpeg;base64,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",new LatLng(31.4826352,74.0542001)));
-        list.add(new City("Islamabad","https://www.zameen.com/blog/wp-content/uploads/2019/05/cover-3.jpg",new LatLng(31.4826352,74.0542001)));
-        list.add(new City("Quetta","https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&ved=2ahUKEwjmwLy879LmAhUvxYUKHbSEAuQQjRx6BAgBEAQ&url=https%3A%2F%2Fwww.wefindyougo.com%2Fbest-tourist-places-in-quetta-pakistan%2F&psig=AOvVaw279U4bdiW2FEqFtEWvOufK&ust=1577434469262728",new LatLng(31.4826352,74.0542001)));
-        list.add(new City("Peshawar","https://media-cdn.tripadvisor.com/media/photo-s/17/2b/10/72/khyber-gate.jpg",new LatLng(31.4826352,74.0542001)));
+        //initialize firebase usage
+        FirebaseApp.initializeApp(getContext());
+        FIREBASE_DATABASE = FirebaseDatabase.getInstance().getReference();
+
+        setupFirebase();//calling firebase get function
 
         //create adapter with dummy list
-        cityAdapter =new CityAdapter(getContext(),list);
-        recyclerView=view.findViewById(R.id.rv_cities);
+        cityAdapter = new CityAdapter(getContext(), list, new CityAdapter.OnCityClickListener() {
+            @Override
+            public void onClickCityInRecycler(int position) {
+                //this will work on cick of any city in recycler view
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("CityClicked", list.get(position));
+                Fragment fragment = new MapViewFragment();
+                fragment.setArguments(bundle);
+                loadFragment(fragment);
+            }
+        });
+        recyclerView = view.findViewById(R.id.rv_cities);
 
         //setup layout for recycler
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -67,9 +85,32 @@ public class CitiesFragment extends Fragment {
         //add adapter to recycler
         recyclerView.setAdapter(cityAdapter);
 
+
         return view;
     }
 
+
+    void setupFirebase() {
+        mCityTable = FIREBASE_DATABASE.getRef().child(FIREBASE_CITY_TABLE_NAME);
+
+        mCityTable.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+
+                    City object = singleSnapshot.getValue(City.class);//create object and parse the data coming from firebase to the city object
+                    list.add(object);//insert city data to end of list(adapter's list)
+                    //Log.i("kinza", "onDataChange: "+object.toString());
+                    cityAdapter.notifyItemInserted(list.size() - 1);//notify recycler adapter that iten is inserted at the end
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -80,6 +121,22 @@ public class CitiesFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    /**
+     * @param fragment fragment to load
+     * @return true if loaded other wise false(only false when send a null fragment)
+     */
+    private boolean loadFragment(Fragment fragment) {
+        //switching fragment
+        if (fragment != null) {
+            mFragmentTransaction = mFragmentManager.beginTransaction();
+            mFragmentTransaction.add(fragment, "detail") // Add this transaction to the back stack (name is an optional name for this back stack state, or null).
+                    .addToBackStack(null);
+            mFragmentTransaction.replace(R.id.frame1, fragment).commit();
+            return true;
+        }
+        return false;
     }
 
 }

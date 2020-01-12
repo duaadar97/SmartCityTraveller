@@ -51,10 +51,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         @Override
         public void onSuccess(Location location) {
             if(location!=null){
-                currentloaction=location;
-                Toast.makeText(getApplicationContext(),currentloaction.getLongitude()+""+currentloaction.getLongitude(),Toast.LENGTH_SHORT).show();
-                SupportMapFragment supportMapFragment=(SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.google_map);
-                supportMapFragment.getMapAsync(MainActivity.this);
+
             }
         }
     });

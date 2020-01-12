@@ -35,14 +35,17 @@ public class HomeActivity extends AppCompatActivity {
      * loading City fragment
      */
     private void init() {
-        mFragmentManager = getSupportFragmentManager();
+        mFragmentManager = getSupportFragmentManager(); //defulat function from app compact
         mFragmentTransaction = mFragmentManager.beginTransaction();
         mFragmentTransaction.replace(R.id.frame1, new CitiesFragment()).commit();
+
+        //after the execution of this line frame 1 will be replaced by cities fragment
 
 
         //layout attachment
         tv_city=findViewById(R.id.btn_city);
         tv_map=findViewById(R.id.btn_map);
+
 
         tv_city.setOnClickListener(new View.OnClickListener() {
             @Override

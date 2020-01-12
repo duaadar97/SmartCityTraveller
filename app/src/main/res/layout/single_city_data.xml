@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_margin="5dp"
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,14 +13,45 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:src="@android:color/background_dark"/>
-        <TextView
-            android:id="@+id/txt_cityName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="20dp"
-            android:text="City Name"
-            android:textSize="24dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/txt_cityName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="City Name"
+                    android:textStyle="bold"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:id="@+id/txt_cityAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="City Address"
+                    android:textSize="14dp"/>
+            </LinearLayout>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_alignParentBottom="true"/>
+        </RelativeLayout>
+
+
 
     </LinearLayout>
 </LinearLayout>
