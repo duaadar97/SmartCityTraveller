@@ -36,9 +36,6 @@
             android:value="@string/map_key" />
 
         <!-- Main Screen activity (currently no use)  -->
-        <activity android:name=".MainActivity">
-
-        </activity>
     </application>
 
 </manifest>

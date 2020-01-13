@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pucit.mcproject.Adapters.CityAdapter;
+import com.pucit.mcproject.HomeActivity;
 import com.pucit.mcproject.Models.City;
 import com.pucit.mcproject.R;
 
@@ -49,6 +50,12 @@ public class CitiesFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        ((HomeActivity) getActivity()).showTabs();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -71,6 +78,16 @@ public class CitiesFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("CityClicked", list.get(position));
                 Fragment fragment = new MapViewFragment();
+                fragment.setArguments(bundle);
+                loadFragment(fragment);
+            }
+
+            @Override
+            public void onClickIconInRecycler(int position) {
+                //sending bundle(city data ) to city detail fragment here!
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("CityClicked", list.get(position));
+                Fragment fragment = new CityDetailFragment();
                 fragment.setArguments(bundle);
                 loadFragment(fragment);
             }

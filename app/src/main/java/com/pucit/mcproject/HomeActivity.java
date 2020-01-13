@@ -7,9 +7,13 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.MapFragment;
@@ -20,6 +24,8 @@ public class HomeActivity extends AppCompatActivity {
 
     private TextView tv_city;
     private TextView tv_map;
+    private LinearLayout ll_tabs;
+//    private ImageView icon;
 
     private FragmentManager mFragmentManager;
     private FragmentTransaction mFragmentTransaction;
@@ -30,7 +36,27 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         init();
+/*
+        Handler handler=new Handler();
+        handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intent=new Intent(HomeActivity.this,city_details.class);
+                                    startActivity(intent);
+                                }
+        };*/
+
+
+//        icon=findViewById(R.id.icon);
+//        icon.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent=new Intent(HomeActivity.this,city_details.class);
+//
+//            }
+//        });
     }
+
     /**
      * loading City fragment
      */
@@ -43,9 +69,9 @@ public class HomeActivity extends AppCompatActivity {
 
 
         //layout attachment
-        tv_city=findViewById(R.id.btn_city);
-        tv_map=findViewById(R.id.btn_map);
-
+        tv_city = findViewById(R.id.btn_city);
+        tv_map = findViewById(R.id.btn_map);
+        ll_tabs = findViewById(R.id.ll_tabs);
 
         tv_city.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +85,14 @@ public class HomeActivity extends AppCompatActivity {
                 loadFragment(new MapViewFragment());
             }
         });
+    }
+
+    public void showTabs() {
+        ll_tabs.setVisibility(View.VISIBLE);
+    }
+
+    public void hideTabs() {
+        ll_tabs.setVisibility(View.GONE);
     }
 
     /**

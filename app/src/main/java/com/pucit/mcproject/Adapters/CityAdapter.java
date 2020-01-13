@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,21 +18,23 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder>   {
+public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
     private OnCityClickListener onCityClickListener;
     private ArrayList<City> cityArrayList;
     private LayoutInflater mLayoutInflater;
-    public CityAdapter(Context mContext, ArrayList<City> cityArrayList,OnCityClickListener onCityClickListener){
-        this.cityArrayList=cityArrayList;
-        mLayoutInflater=LayoutInflater.from(mContext);
-        this.onCityClickListener=onCityClickListener;
+
+    public CityAdapter(Context mContext, ArrayList<City> cityArrayList, OnCityClickListener onCityClickListener) {
+        this.cityArrayList = cityArrayList;
+        mLayoutInflater = LayoutInflater.from(mContext);
+        this.onCityClickListener = onCityClickListener;
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view=mLayoutInflater.inflate(R.layout.single_city_data,parent,false);
+        View view = mLayoutInflater.inflate(R.layout.single_city_data, parent, false);
 
 
         return new ViewHolder(view);
@@ -39,7 +42,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder>   
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        City city=cityArrayList.get(position);
+        City city = cityArrayList.get(position);
         holder.txt_cityName.setText(city.getCityName());
         holder.txt_cityAddress.setText(city.getCityAddress());
         //load Image
@@ -54,28 +57,43 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder>   
         return cityArrayList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView img_cityImage;
         TextView txt_cityName;
         TextView txt_cityAddress;
+        RelativeLayout rl_view;
+        ImageView nextIcon;
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            img_cityImage=itemView.findViewById(R.id.img_cityImage);
-            txt_cityName=itemView.findViewById(R.id.txt_cityName);
-            txt_cityAddress=itemView.findViewById(R.id.txt_cityAddress);
-            itemView.setOnClickListener(new View.OnClickListener() {
+            img_cityImage = itemView.findViewById(R.id.img_cityImage);
+            txt_cityName = itemView.findViewById(R.id.txt_cityName);
+            txt_cityAddress = itemView.findViewById(R.id.txt_cityAddress);
+            rl_view = itemView.findViewById(R.id.rl_view);
+            nextIcon = itemView.findViewById(R.id.icon);
+
+            rl_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     onCityClickListener.onClickCityInRecycler(getAdapterPosition());
                 }
             });
+
+            nextIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onCityClickListener.onClickIconInRecycler(getAdapterPosition());
+                }
+            });
         }
     }
-    //it execute when we click on a city view
-    public interface OnCityClickListener{
+
+    public interface OnCityClickListener {
         void onClickCityInRecycler(int position);
+
+        void onClickIconInRecycler(int position);
     }
+
 }

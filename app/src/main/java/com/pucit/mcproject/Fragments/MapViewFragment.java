@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.pucit.mcproject.HomeActivity;
 import com.pucit.mcproject.Models.City;
 import com.pucit.mcproject.Models.Places;
 import com.pucit.mcproject.R;
@@ -43,6 +44,7 @@ public class MapViewFragment extends Fragment {
     FusedLocationProviderClient fusedLocationProviderClient;
     GoogleMap mMap;
     City mCity = null;
+    Places mPlace = null;
     List<Marker> markers = new ArrayList<>();//to store markers we add that wil be used to show the area in which markers are present
     private static final int Request_code = 101;
 
@@ -60,8 +62,11 @@ public class MapViewFragment extends Fragment {
         //getting arguments bundle
         Bundle bundle = getArguments();
         if (bundle != null) {
-            mCity = (City) bundle.getSerializable("CityClicked");
-
+            if (bundle.containsKey("CityClicked")) {
+                mCity = (City) bundle.getSerializable("CityClicked");
+            } else {
+                mPlace = (Places) bundle.getSerializable("PlaceClicked");
+            }
         }
 
 
@@ -87,6 +92,12 @@ public class MapViewFragment extends Fragment {
         fetchLastLocation();
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((HomeActivity) getActivity()).showTabs();
     }
 
     private void showCityData() {
@@ -135,12 +146,26 @@ public class MapViewFragment extends Fragment {
                     currentloaction = location;
                     if (mCity != null) {
                         showCityData(); //shw city data if have
+                    } else if (mPlace != null) {
+                        showPlaceData();
                     } else      //else show current position
                         moveCameraToLocation(currentloaction.getLatitude(), currentloaction.getLongitude());
                 }
             }
         });
 
+    }
+
+    private void showPlaceData() {
+        LatLng latLng = new LatLng(mPlace.getLocation().getLatitude(), mPlace.getLocation().getLongitude());
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(latLng);
+        markerOptions.title(mPlace.getName());
+
+        //adding marker on map
+        mMap.addMarker(markerOptions);
+
+        moveCameraToLocation(mPlace.getLocation().getLatitude(), mPlace.getLocation().getLongitude());
     }
 
     private void moveCameraToLocation(double latitude, double longitude) {

@@ -1,6 +1,8 @@
 package com.pucit.mcproject.Models;
 
-public class Places {
+import java.io.Serializable;
+
+public class Places implements Serializable {
     private String Address;
     private double rating;
     private String ImageUrl;
